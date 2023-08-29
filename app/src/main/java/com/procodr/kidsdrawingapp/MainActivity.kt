@@ -4,6 +4,7 @@ import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     private var drawingView: DrawingView? = null
@@ -26,8 +27,35 @@ class MainActivity : AppCompatActivity() {
         brushDialog.setContentView(R.layout.dialog_brush_size)
         brushDialog.setTitle("Brush size: ")
 
-        val tinyBtn : ImageButton = findViewById(R.id.ib_tiny_brush)
+        val tinyButton: ImageButton = brushDialog.findViewById(R.id.ib_tiny_brush)
+        changeBrushSize(2f, tinyButton, brushDialog)
+
+        val xSmallButton: ImageButton = brushDialog.findViewById(R.id.ib_xSmall_brush)
+        changeBrushSize(4f, xSmallButton, brushDialog)
+
+        val smallButton: ImageButton = brushDialog.findViewById(R.id.ib_small_brush)
+        changeBrushSize(6f, smallButton, brushDialog)
+
+        val mediumButton: ImageButton = brushDialog.findViewById(R.id.ib_medium_brush)
+        changeBrushSize(10f, mediumButton, brushDialog)
+
+        val largeButton: ImageButton = brushDialog.findViewById(R.id.ib_large_brush)
+        changeBrushSize(15f, largeButton, brushDialog)
+
+        val xLargeButton: ImageButton = brushDialog.findViewById(R.id.ib_xLarge_brush)
+        changeBrushSize(20f, xLargeButton, brushDialog)
+
+        val humongousButton: ImageButton = brushDialog.findViewById(R.id.ib_humongous_brush)
+        changeBrushSize(30f, humongousButton, brushDialog)
 
         brushDialog.show()
+    }
+
+    private fun changeBrushSize(brushSize: Float,button:ImageButton, brushDialog: Dialog) {
+        button.setOnClickListener {
+            drawingView?.setSizeForBrush(brushSize)
+
+            brushDialog.dismiss()
+        }
     }
 }
