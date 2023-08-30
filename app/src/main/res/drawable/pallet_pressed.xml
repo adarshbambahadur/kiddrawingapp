@@ -19,10 +19,10 @@
     <item>
         <shape>
             <stroke
-                android:width="2dp"
+                android:width="3dp"
                 android:color="#FF333333"
                 />
-            <solid android:color="#00000000" />
+            <solid android:color="#33333333" />
             <corners android:radius="10dp" />
         </shape>
     </item>
