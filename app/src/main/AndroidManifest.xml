@@ -24,7 +24,7 @@
         </activity>
 
         <provider
-                android:authorities="com.procodr.kidsdrawingapp.fileprovider"
+            android:authorities="eu.tutorials.kidsdrawingapp.fileprovider"
             android:name="androidx.core.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true"
