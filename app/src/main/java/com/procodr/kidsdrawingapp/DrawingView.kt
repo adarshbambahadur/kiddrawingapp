@@ -28,7 +28,14 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
         if (mPaths.size > 0) {
             mUndoPaths.add(mPaths.removeAt(mPaths.size - 1))
             invalidate()
-        } else {
+        } else if (mUndoPaths.size > 0) {
+            Toast.makeText(context, "Trying Undo", Toast.LENGTH_LONG)
+            mPaths.addAll(mUndoPaths)
+            mUndoPaths.clear()
+            invalidate()
+        }
+        else
+        {
             Toast.makeText(context, "Can't Undo More", Toast.LENGTH_SHORT).show()
         }
     }
@@ -45,6 +52,8 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
     }
 
     fun clearCanvas() {
+        mUndoPaths.clear()
+        mUndoPaths.addAll(mPaths)
         mPaths.clear()
         invalidate()
     }
