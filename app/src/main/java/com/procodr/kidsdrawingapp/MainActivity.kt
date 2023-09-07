@@ -8,7 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
-import android.media.MediaScannerConnection
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,7 +18,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.PackageManagerCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.get
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -242,7 +242,7 @@ class MainActivity : AppCompatActivity() {
                                 "File saved successfully: $result",
                                 Toast.LENGTH_SHORT
                                 ).show()
-                            shareImage(result)
+                            shareImage(FileProvider.getUriForFile(baseContext,"eu.tutorials.kidsdrawingapp.fileprovider", f))
                         } else {
                             Toast.makeText(this@MainActivity,
                                 "Something went wrong while saving the file.",
@@ -275,17 +275,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun shareImage(result: String) {
-        MediaScannerConnection.scanFile(this,
-            arrayOf(result),
-            null
-        ) {
-            path, uri ->
-            val shareIntent = Intent()
-            shareIntent.action = Intent.ACTION_SEND
-            shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
-            shareIntent.type = "image/png"
-            startActivity(Intent.createChooser(shareIntent, "Share"))
+    private fun shareImage(uri: Uri){
+        val intent = Intent().apply {
+            this.action = Intent.ACTION_SEND
+            this.putExtra(Intent.EXTRA_STREAM, uri)
+            this.type = "image/png"
         }
+        startActivity(Intent.createChooser(intent, "Share image via "))
     }
 }
