@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.core.view.get
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -93,9 +94,19 @@ class MainActivity : AppCompatActivity() {
             showBrushChooserDialog()
         }
 
+        val clearCanvas : ImageButton = findViewById(R.id.ib_clearCanvas)
+        clearCanvas.setOnClickListener {
+            drawingView?.clearCanvas()
+        }
+
         val ibUndo : ImageButton = findViewById(R.id.ib_undo)
         ibUndo.setOnClickListener {
             drawingView?.onClickUndo()
+        }
+
+        val ibRedo : ImageButton = findViewById(R.id.ib_redo)
+        ibRedo.setOnClickListener {
+            drawingView?.onClickRedo(this@MainActivity)
         }
 
         val ibSave : ImageButton = findViewById(R.id.ib_save)
@@ -114,6 +125,11 @@ class MainActivity : AppCompatActivity() {
         ibGallery.setOnClickListener {
             requestStoragePermission()
         }
+
+        val ibRemoveImage: ImageButton = findViewById(R.id.ib_removeImage)
+        ibRemoveImage.setOnClickListener {
+            removeImage()
+        }
     }
 
     private fun isReadStorageAllowed(): Boolean {
@@ -122,6 +138,12 @@ class MainActivity : AppCompatActivity() {
         )
 
         return result == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun removeImage() {
+        val imageBackground: ImageView = findViewById(R.id.iv_background)
+
+        imageBackground.setImageURI(R.drawable.image.toString().toUri())
     }
 
     private fun requestStoragePermission() {

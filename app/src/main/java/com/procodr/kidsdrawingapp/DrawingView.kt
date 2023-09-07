@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 
 class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
     private var mDrawPath : CustomPath? = null
@@ -18,7 +19,6 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
 
     private val mPaths = ArrayList<CustomPath>()
     private val mUndoPaths = ArrayList<CustomPath>()
-    private val mRedoPaths = ArrayList<CustomPath>()
 
     init {
         setUpDrawing()
@@ -28,9 +28,26 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
         if (mPaths.size > 0) {
             mUndoPaths.add(mPaths.removeAt(mPaths.size - 1))
             invalidate()
+        } else {
+            Toast.makeText(context, "Can't Undo More", Toast.LENGTH_SHORT).show()
         }
     }
 
+    fun onClickRedo(context: Context) {
+        val numOfElements = mUndoPaths.size
+        if (numOfElements > 0) {
+            mPaths.add(mUndoPaths[numOfElements - 1])
+            mUndoPaths.removeAt(numOfElements - 1)
+            invalidate()
+        } else {
+            Toast.makeText(context, "Can't Redo More", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun clearCanvas() {
+        mPaths.clear()
+        invalidate()
+    }
 
     private fun setUpDrawing() {
         mDrawPaint = Paint()
