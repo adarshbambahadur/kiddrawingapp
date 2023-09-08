@@ -59,18 +59,6 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
         invalidate()
     }
 
-    fun hidePaths() {
-        mHidePaths.clear()
-       mHidePaths.addAll(mPaths)
-        mPaths.clear()
-        invalidate()
-    }
-
-    fun showPaths() {
-        mPaths.addAll(mHidePaths)
-        mHidePaths.clear()
-        invalidate()
-    }
 
     private fun setUpDrawing() {
         mDrawPaint = Paint()

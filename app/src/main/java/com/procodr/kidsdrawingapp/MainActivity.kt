@@ -137,16 +137,27 @@ class MainActivity : AppCompatActivity() {
             _, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    drawingView?.hidePaths()
+                    hideImg()
                     false
                 }
                 MotionEvent.ACTION_UP -> {
-                    drawingView?.showPaths()
+                    showImg()
                     false
                 }
                 else -> false
             }
         }
+    }
+
+    private fun hideImg() {
+        val imgBackground: ImageView = findViewById(R.id.iv_background)
+
+        imgBackground.visibility = View.INVISIBLE
+    }
+    private fun showImg() {
+        val imgBackground: ImageView = findViewById(R.id.iv_background)
+
+        imgBackground.visibility = View.VISIBLE
     }
 
     private fun isReadStorageAllowed(): Boolean {
