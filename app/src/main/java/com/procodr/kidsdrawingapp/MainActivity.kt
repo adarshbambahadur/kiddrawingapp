@@ -131,33 +131,23 @@ class MainActivity : AppCompatActivity() {
         ibRemoveImage.setOnClickListener {
             removeImage()
         }
+        val imgBackground: ImageView = findViewById(R.id.iv_background)
 
         val ibHidePaths: ImageButton = findViewById(R.id.ib_hidePaths)
         ibHidePaths.setOnTouchListener {
             _, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    hideImg()
+                    imgBackground.visibility = View.INVISIBLE
                     false
                 }
                 MotionEvent.ACTION_UP -> {
-                    showImg()
+                    imgBackground.visibility = View.VISIBLE
                     false
                 }
                 else -> false
             }
         }
-    }
-
-    private fun hideImg() {
-        val imgBackground: ImageView = findViewById(R.id.iv_background)
-
-        imgBackground.visibility = View.INVISIBLE
-    }
-    private fun showImg() {
-        val imgBackground: ImageView = findViewById(R.id.iv_background)
-
-        imgBackground.visibility = View.VISIBLE
     }
 
     private fun isReadStorageAllowed(): Boolean {
