@@ -12,6 +12,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
@@ -129,6 +130,22 @@ class MainActivity : AppCompatActivity() {
         val ibRemoveImage: ImageButton = findViewById(R.id.ib_removeImage)
         ibRemoveImage.setOnClickListener {
             removeImage()
+        }
+
+        val ibHidePaths: ImageButton = findViewById(R.id.ib_hidePaths)
+        ibHidePaths.setOnTouchListener {
+            _, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    drawingView?.hidePaths()
+                    false
+                }
+                MotionEvent.ACTION_UP -> {
+                    drawingView?.showPaths()
+                    false
+                }
+                else -> false
+            }
         }
     }
 

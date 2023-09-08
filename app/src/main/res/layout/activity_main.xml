@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/iv_background"
             android:layout_width="match_parent"
@@ -30,6 +31,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#80FFFFFF"/>
+
+        <ImageButton
+            android:id="@+id/ib_hidePaths"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_hide"
+            android:background="@drawable/rounded_btn" />
     </FrameLayout>
 
     <LinearLayout

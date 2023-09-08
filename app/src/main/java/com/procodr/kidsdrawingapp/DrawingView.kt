@@ -18,6 +18,7 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
     private var canvas: Canvas? = null
 
     private val mPaths = ArrayList<CustomPath>()
+    private val mHidePaths = ArrayList<CustomPath>()
     private val mUndoPaths = ArrayList<CustomPath>()
 
     init {
@@ -55,6 +56,19 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
         mUndoPaths.clear()
         mUndoPaths.addAll(mPaths)
         mPaths.clear()
+        invalidate()
+    }
+
+    fun hidePaths() {
+        mHidePaths.clear()
+       mHidePaths.addAll(mPaths)
+        mPaths.clear()
+        invalidate()
+    }
+
+    fun showPaths() {
+        mPaths.addAll(mHidePaths)
+        mHidePaths.clear()
         invalidate()
     }
 
